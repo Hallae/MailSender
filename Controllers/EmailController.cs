@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
-using System.Net.Mail;
+using MailKit.Net.Smtp;
+
 
 namespace AutoMailSender.Controllers
 {

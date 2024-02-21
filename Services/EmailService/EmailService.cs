@@ -17,7 +17,7 @@ namespace AutoMailSender.Services.EmailService
         public void SendEmail(EmailDto request)
         {
             var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("edwin.shields18@ethereal.email"));
+            email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUserName").Value));
             email.To.Add(MailboxAddress.Parse(request.Recepients));
             email.Subject = request.Subject;
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = request.Body };

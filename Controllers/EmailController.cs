@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using MailKit.Net.Smtp;
+using AutoMailSender.Services.EmailService;
+using AutoMailSender.Models;
 
 
 namespace AutoMailSender.Controllers
@@ -11,20 +13,17 @@ namespace AutoMailSender.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        [HttpPost]
-        public IActionResult SendEmail(string body)
-        {
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse("edwin.shields18@ethereal.email"));
-            email.To.Add(MailboxAddress.Parse("edwin.shields18@ethereal.email"));
-            email.Subject = "Test Email Subject";
-            email.Body= new TextPart(MimeKit.Text.TextFormat.Html) { Text = body };
+        private readonly IEmailService  _emailService;  
 
-            using var smtp = new SmtpClient();
-            smtp.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
-            smtp.Authenticate("edwin.shields18@ethereal.email", "e1k2xtEueZfsAUhUjt");
-            smtp.Send(email);
-            smtp.Disconnect(true);
+        public EmailController(IEmailService emailService)
+        {
+            _emailService = emailService;
+        }
+
+        [HttpPost]
+        public IActionResult SendEmail(EmailDto request)
+        {
+            _emailService.SendEmail(request);
 
             return Ok();
 

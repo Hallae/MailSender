@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.EntityFrameworkCore.Design;
+using AutoMailSender.Services.EmailService;
 
 namespace AutoMailSender.Data
 
@@ -12,7 +13,7 @@ namespace AutoMailSender.Data
 
 
         public DbSet<EmailDto> EmailDto { get; set; }
-      
+    
 
     }
 

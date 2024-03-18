@@ -4,7 +4,7 @@
 
 namespace AutoMailSender.Migrations
 {
-    public partial class CreateLogTable : Migration
+    public partial class ThirdMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

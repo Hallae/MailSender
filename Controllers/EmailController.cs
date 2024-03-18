@@ -5,6 +5,8 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using AutoMailSender.Services.EmailService;
 using AutoMailSender.Models;
+using AutoMailSender.Data;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace AutoMailSender.Controllers
@@ -13,28 +15,31 @@ namespace AutoMailSender.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        private readonly IEmailService  _emailService;  
-
-        public EmailController(IEmailService emailService)
+       
+        private readonly DataContext _context;
+        public EmailController(DataContext context)
         {
-            _emailService = emailService;
+            _context = context;
         }
+        
+
 
         [HttpPost]
-        public IActionResult SendEmail(EmailDto request)
+        public async Task<ActionResult<List<EmailDto>>>AddEmail(EmailDto request)
         {
-            _emailService.SendEmail(request);
+            _context.EmailDto.Add(request);
+            await _context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(await _context.EmailDto.ToListAsync());
 
         }
 
         [HttpGet]
-        public IActionResult ListEmail(EmailDto request)
+        public async Task<ActionResult<List<EmailDto>>> Get()
         {
           
 
-            return Ok();
+            return Ok(await _context.EmailDto.ToListAsync());
 
         }
 

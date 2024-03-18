@@ -28,5 +28,15 @@ namespace AutoMailSender.Controllers
             return Ok();
 
         }
+
+        [HttpGet]
+        public IActionResult ListEmail(EmailDto request)
+        {
+          
+
+            return Ok();
+
+        }
+
     }
 }

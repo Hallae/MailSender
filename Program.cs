@@ -1,5 +1,7 @@
 using AutoMailSender.Services.EmailService;
 using AutoMailSender.Models;
+using Microsoft.EntityFrameworkCore;
+using AutoMailSender.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
+builder.Services.AddDbContext<DataContext>(options =>
+{ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); }
+);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

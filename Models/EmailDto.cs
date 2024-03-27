@@ -13,12 +13,8 @@ namespace AutoMailSender.Models
         public string Body { get; set; } = string.Empty;
         public string Recepients { get; set; } = string.Empty;
         public DateTime TimeCreated { get; set; }
-       
-        [Required]
-        public int StatusCode { get; set; }
-        [Required]
-        public string StatusMessage { get; set; }
-        
+
+        public int? StatusCode { get; set; }
 
 
 
